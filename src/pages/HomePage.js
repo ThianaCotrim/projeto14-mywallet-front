@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { BiExit } from "react-icons/bi"
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai"
+import { Link } from "react-router-dom"
 
 export default function HomePage() {
 
@@ -36,17 +37,17 @@ export default function HomePage() {
         </article>
       </TransactionsContainer>
 
-
       <ButtonsContainer>
         <button>
           <AiOutlinePlusCircle />
           <p>Nova <br /> entrada</p>
         </button>
 
-       <button>
-          <AiOutlineMinusCircle />
+       <button> 
+        <AiOutlineMinusCircle />
           <p>Nova <br />saída</p>
         </button>
+       
       </ButtonsContainer>
 
     </HomeContainer>
@@ -85,7 +86,7 @@ const TransactionsContainer = styled.article`
     }
   }
 `
-const ButtonsContainer = styled.section`
+const ButtonsContainer = styled(Link)`
   margin-top: 15px;
   margin-bottom: 0;
   display: flex;
