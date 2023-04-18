@@ -3,6 +3,7 @@ import { BiExit } from "react-icons/bi"
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai"
 
 export default function HomePage() {
+
   return (
     <HomeContainer>
       <Header>
@@ -41,7 +42,8 @@ export default function HomePage() {
           <AiOutlinePlusCircle />
           <p>Nova <br /> entrada</p>
         </button>
-        <button>
+
+       <button>
           <AiOutlineMinusCircle />
           <p>Nova <br />saída</p>
         </button>
