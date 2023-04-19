@@ -37,19 +37,17 @@ export default function HomePage() {
         </article>
       </TransactionsContainer>
 
-      <ButtonsContainer>
+      <StyledLink to="/nova-transacao/:tipo">
         <button>
           <AiOutlinePlusCircle />
           <p>Nova <br /> entrada</p>
         </button>
-
+        
        <button> 
         <AiOutlineMinusCircle />
           <p>Nova <br />saída</p>
         </button>
-       
-      </ButtonsContainer>
-
+        </StyledLink>
     </HomeContainer>
   )
 }
@@ -86,7 +84,7 @@ const TransactionsContainer = styled.article`
     }
   }
 `
-const ButtonsContainer = styled(Link)`
+const StyledLink = styled(Link)`
   margin-top: 15px;
   margin-bottom: 0;
   display: flex;
