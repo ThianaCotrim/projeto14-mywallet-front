@@ -2,8 +2,29 @@ import styled from "styled-components"
 import { BiExit } from "react-icons/bi"
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai"
 import { Link } from "react-router-dom"
+import { useEffect, useState } from "react"
+import axios from "axios"
 
-export default function HomePage() {
+export default function HomePage({token}) {
+
+  const [transacao, setTransacao] = useState([])
+  // const [usuario, setUsuario] = useState([])
+  
+  useEffect(() => {
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+
+    axios.get("http://localhost:5000/transacao", config)
+    .then((res) => setTransacao(res.data) (console.log(res.data)))
+    .catch((err) => console.log(err))
+
+
+  }, [])
+
 
   return (
     <HomeContainer>
@@ -14,40 +35,40 @@ export default function HomePage() {
 
       <TransactionsContainer>
         <ul>
-          <ListItemContainer>
-            <div>
-              <span>30/11</span>
-              <strong>Almoço mãe</strong>
-            </div>
-            <Value color={"negativo"}>120,00</Value>
-          </ListItemContainer>
+    {transacao.map((t) => (
+      <ListItemContainer>
+      <div>
+        <span>30/11</span>
+        <strong>{t.descricao}</strong>
+      </div>
+      <Value color={t.tipo}>{t.valor}</Value>
+    </ListItemContainer>
 
-          <ListItemContainer>
-            <div>
-              <span>15/11</span>
-              <strong>Salário</strong>
-            </div>
-            <Value color={"positivo"}>3000,00</Value>
-          </ListItemContainer>
+    ))}
         </ul>
+
 
         <article>
           <strong>Saldo</strong>
           <Value color={"positivo"}>2880,00</Value>
         </article>
       </TransactionsContainer>
-
-      <StyledLink to="/nova-transacao/:tipo">
+      <Testando>
+      <StyledLink to="/nova-transacao/entrada">
         <button>
           <AiOutlinePlusCircle />
           <p>Nova <br /> entrada</p>
         </button>
+         </StyledLink>
         
+      <StyledLink to="/nova-transacao/saida">
        <button> 
         <AiOutlineMinusCircle />
           <p>Nova <br />saída</p>
         </button>
         </StyledLink>
+        </Testando>
+
     </HomeContainer>
   )
 }
@@ -89,9 +110,11 @@ const StyledLink = styled(Link)`
   margin-bottom: 0;
   display: flex;
   gap: 15px;
+  width: 100%;
+  justify-content: space-around;
   
   button {  
-    width: 50%;
+    width: 96%;
     height: 115px;
     font-size: 22px;
     text-align: left;
@@ -106,7 +129,7 @@ const StyledLink = styled(Link)`
 const Value = styled.div`
   font-size: 16px;
   text-align: right;
-  color: ${(props) => (props.color === "positivo" ? "green" : "red")};
+  color: ${(props) => (props.color === "credito" ? "green" : "red")};
 `
 const ListItemContainer = styled.li`
   display: flex;
@@ -119,4 +142,10 @@ const ListItemContainer = styled.li`
     color: #c6c6c6;
     margin-right: 10px;
   }
+`
+
+const Testando = styled.div`
+display:flex;
+
+
 `

@@ -5,7 +5,7 @@ import { useState } from "react"
 import axios from "axios"
 
 
-export default function SignInPage() {
+export default function SignInPage({setToken}) {
 
   const [form, setForm] = useState({email:"", senha:""})
   const navigate = useNavigate()
@@ -15,9 +15,11 @@ export default function SignInPage() {
 
     //eslint-disable-next-line no-undef
     axios.post(`${process.env.REACT_APP_API}/login`, form)
-    .then((res) => navigate("/home"))
+    .then((res) => {
+      setToken(res.data)
+      navigate("/home")
+    })
     .catch((err) => console.log(err))
- // navigate("/home")
 
   }
 
