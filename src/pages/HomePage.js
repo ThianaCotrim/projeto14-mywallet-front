@@ -90,7 +90,7 @@ const StyledLink = styled(Link)`
   display: flex;
   gap: 15px;
   
-  button {
+  button {  
     width: 50%;
     height: 115px;
     font-size: 22px;
