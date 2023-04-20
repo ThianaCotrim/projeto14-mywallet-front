@@ -1,11 +1,12 @@
 import styled from "styled-components"
 import { BiExit } from "react-icons/bi"
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai"
-import { Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
 
 export default function HomePage({token}) {
+
 
   const [transacao, setTransacao] = useState([])
   // const [usuario, setUsuario] = useState([])
@@ -24,6 +25,16 @@ export default function HomePage({token}) {
 
 
   }, [])
+
+  const navigate = useNavigate()
+
+  function entrada (){
+    navigate("/nova-transacao/entrada")
+  }
+
+  function saida (){
+    navigate("/nova-transacao/saida")
+  }
 
 
   return (
@@ -54,19 +65,20 @@ export default function HomePage({token}) {
         </article>
       </TransactionsContainer>
       <Testando>
-      <StyledLink to="/nova-transacao/entrada">
+      <Teste onClick={entrada}>
         <button>
           <AiOutlinePlusCircle />
           <p>Nova <br /> entrada</p>
         </button>
-         </StyledLink>
+         </Teste>
         
-      <StyledLink to="/nova-transacao/saida">
+      <Teste onClick={saida}>
        <button> 
         <AiOutlineMinusCircle />
           <p>Nova <br />saída</p>
         </button>
-        </StyledLink>
+        </Teste>
+        
         </Testando>
 
     </HomeContainer>
@@ -105,7 +117,7 @@ const TransactionsContainer = styled.article`
     }
   }
 `
-const StyledLink = styled(Link)`
+const Teste = styled.div`
   margin-top: 15px;
   margin-bottom: 0;
   display: flex;
