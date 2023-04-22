@@ -9,7 +9,6 @@ export default function HomePage({token}) {
 
 
   const [transacao, setTransacao] = useState([])
-  // const [usuario, setUsuario] = useState([])
   
   useEffect(() => {
 
@@ -19,7 +18,7 @@ export default function HomePage({token}) {
       }
     }
 
-    axios.get("http://localhost:5000/transacao", config)
+    axios.get("http://localhost:5000/transacao", config, )
     .then((res) => setTransacao(res.data) (console.log(res.data)))
     .catch((err) => console.log(err))
 
@@ -36,12 +35,17 @@ export default function HomePage({token}) {
     navigate("/nova-transacao/saida")
   }
 
+  function sair (){
+    navigate('/')
+    localStorage.clear()
+  }
+
 
   return (
     <HomeContainer>
       <Header>
-        <h1>Olá, Fulano</h1>
-        <BiExit />
+        <h1>Olá, FULANO</h1>
+        <BiExit onClick={sair}/>
       </Header>
 
       <TransactionsContainer>
@@ -49,7 +53,7 @@ export default function HomePage({token}) {
     {transacao.map((t) => (
       <ListItemContainer>
       <div>
-        <span>30/11</span>
+        <span>{t.date}</span>
         <strong>{t.descricao}</strong>
       </div>
       <Value color={t.tipo}>{t.valor}</Value>
@@ -57,8 +61,6 @@ export default function HomePage({token}) {
 
     ))}
         </ul>
-
-
         <article>
           <strong>Saldo</strong>
           <Value color={"positivo"}>2880,00</Value>
@@ -78,7 +80,6 @@ export default function HomePage({token}) {
           <p>Nova <br />saída</p>
         </button>
         </Teste>
-        
         </Testando>
 
     </HomeContainer>

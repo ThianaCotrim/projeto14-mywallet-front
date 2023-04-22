@@ -4,7 +4,7 @@ import MyWalletLogo from "../components/MyWalletLogo"
 import { useState } from "react"
 import axios from "axios"
 
-export default function SignUpPage() {
+export default function SignUpPage({setUsuario}) {
   const [form, setForm] = useState ({nome: "", email: "", senha:"", confsenha:""})
   const navigate = useNavigate()
 
@@ -12,7 +12,7 @@ export default function SignUpPage() {
     e.preventDefault()
 
     axios.post("http://localhost:5000/cadastro", form)
-    .then((res) =>  navigate("/"))
+    .then((res) => navigate("/"))
     .catch((err) => console.log(err.response.data))
   }
 

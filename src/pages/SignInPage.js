@@ -10,12 +10,15 @@ export default function SignInPage({setToken}) {
   const [form, setForm] = useState({email:"", senha:""})
   const navigate = useNavigate()
 
+
   function entrarNoApp (e){
     e.preventDefault()
 
     //eslint-disable-next-line no-undef
     axios.post(`${process.env.REACT_APP_API}/login`, form)
     .then((res) => {
+      // const {nome} = res.data
+      // setUsuario({nome})
       setToken(res.data)
       navigate("/home")
     })

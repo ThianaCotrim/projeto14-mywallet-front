@@ -9,7 +9,6 @@ import { useState } from "react"
 export default function App() {
 
   const [token, setToken] = useState(undefined)
-  // const [usuario, setUsuario] = useState (undefined)
   return (
     <PagesContainer>
       <BrowserRouter>
@@ -17,7 +16,7 @@ export default function App() {
           <Route path="/" element={<SignInPage setToken={setToken}/>} />
           <Route path="/cadastro" element={<SignUpPage/>} />
           <Route path="/home" element={<HomePage token={token}/>} />
-          <Route path="/nova-transacao/:tipo" element={<TransactionsPage/>} />
+          <Route path="/nova-transacao/:tipo" element={<TransactionsPage token={token}/>} />
         </Routes>
       </BrowserRouter>
     </PagesContainer>
