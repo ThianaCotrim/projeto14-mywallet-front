@@ -5,8 +5,7 @@ import styled from "styled-components"
 
 export default function TransactionsPage({ token }) {
   const {tipo} = useParams()
-  console.log({tipo})
-  const [form, setForm] = useState ({valor: "", descricao: ""})
+  const [form, setForm] = useState ({valor: "", descricao: "", tipo:tipo})
   const navigate = useNavigate()
 
   
@@ -14,7 +13,7 @@ export default function TransactionsPage({ token }) {
     e.preventDefault()
 
     const config = {
-      headers: {
+      headers: {  
         Authorization: `Bearer ${token}`
       }
     }

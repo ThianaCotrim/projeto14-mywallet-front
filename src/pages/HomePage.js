@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { BiExit } from "react-icons/bi"
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
 
@@ -9,9 +9,7 @@ export default function HomePage({token, perfilNome}) {
 
 
   const [transacao, setTransacao] = useState([])
-  const {tipo} = useParams()
 
- 
   
   useEffect(() => {
 
@@ -24,7 +22,6 @@ export default function HomePage({token, perfilNome}) {
     axios.get("http://localhost:5000/transacao", config)
     .then((res) => {
       setTransacao(res.data) 
-      // console.log(res.data.forEach(newTransacao => console.log(newTransacao.tipo)))
     })
     .catch((err) => console.log(err))
 
@@ -32,13 +29,9 @@ export default function HomePage({token, perfilNome}) {
 
   const navigate = useNavigate()
 
-  function entrada (type){
+  function novaTransacao(type){
     navigate(`/nova-transacao/${type}`)
-  }
-
-  function saida (type){
-    navigate(`/nova-transacao/${type}`)
-  }
+ }
 
   function sair (){
     navigate('/')
@@ -61,25 +54,25 @@ export default function HomePage({token, perfilNome}) {
         <span>{t.newTransacao.date}</span>
         <strong>{t.newTransacao.descricao}</strong>
       </div>
-      <Value color={"debito"}>{t.newTransacao.valor}</Value>
+      <Value  color={t.newTransacao.tipo === "credito" ? "green" : "red"}>{t.newTransacao.valor}</Value>
     </ListItemContainer>
 
     ))}
         </ul>
         <article>
           <strong>Saldo</strong>
-          <Value color={"debito"}>2880,00</Value>
+          <Value color={"credito"}>2880,00</Value>
         </article>
       </TransactionsContainer>
       <Testando>
-      <Teste onClick={() => entrada("credito")}>
+      <Teste onClick={() => novaTransacao("credito")}>
         <button>
           <AiOutlinePlusCircle />
           <p>Nova <br /> entrada</p>
         </button>
          </Teste>
         
-      <Teste onClick={() => saida("debito")}>
+      <Teste onClick={() => novaTransacao("debito")}>
        <button> 
         <AiOutlineMinusCircle />
           <p>Nova <br />saída</p>
@@ -147,8 +140,10 @@ const Teste = styled.div`
 const Value = styled.div`
   font-size: 16px;
   text-align: right;
-  color: ${(props) => (props.color === "credito" ? "green" : "red")};
+  color: ${(props) => (props.color)};
 `
+
+
 const ListItemContainer = styled.li`
   display: flex;
   justify-content: space-between;
