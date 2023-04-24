@@ -5,10 +5,11 @@ import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
 
-export default function HomePage({token}) {
+export default function HomePage({token, perfilNome}) {
 
 
   const [transacao, setTransacao] = useState([])
+
   
   useEffect(() => {
 
@@ -18,10 +19,9 @@ export default function HomePage({token}) {
       }
     }
 
-    axios.get("http://localhost:5000/transacao", config, )
-    .then((res) => setTransacao(res.data) (console.log(res.data)))
+    axios.get("http://localhost:5000/transacao", config)
+    .then((res) => setTransacao(res.data))
     .catch((err) => console.log(err))
-
 
   }, [])
 
@@ -44,7 +44,7 @@ export default function HomePage({token}) {
   return (
     <HomeContainer>
       <Header>
-        <h1>Olá, FULANO</h1>
+        <h1>Olá, {perfilNome}</h1>
         <BiExit onClick={sair}/>
       </Header>
 
@@ -53,10 +53,10 @@ export default function HomePage({token}) {
     {transacao.map((t) => (
       <ListItemContainer>
       <div>
-        <span>{t.date}</span>
-        <strong>{t.descricao}</strong>
+        <span>{t.newTransacao.date}</span>
+        <strong>{t.newTransacao.descricao}</strong>
       </div>
-      <Value color={t.tipo}>{t.valor}</Value>
+      <Value color={t.newTransacao.tipo}>{t.newTransacao.valor}</Value>
     </ListItemContainer>
 
     ))}

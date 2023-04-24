@@ -9,13 +9,15 @@ import { useState } from "react"
 export default function App() {
 
   const [token, setToken] = useState(undefined)
+  const [perfilNome, setPerfilNome] = useState()
+  
   return (
     <PagesContainer>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<SignInPage setToken={setToken}/>} />
+          <Route path="/" element={<SignInPage setToken={setToken} setPerfilNome={setPerfilNome}/>} />
           <Route path="/cadastro" element={<SignUpPage/>} />
-          <Route path="/home" element={<HomePage token={token}/>} />
+          <Route path="/home" element={<HomePage token={token} perfilNome={perfilNome}/>}/>
           <Route path="/nova-transacao/:tipo" element={<TransactionsPage token={token}/>} />
         </Routes>
       </BrowserRouter>

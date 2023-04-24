@@ -4,7 +4,7 @@ import MyWalletLogo from "../components/MyWalletLogo"
 import { useState } from "react"
 import axios from "axios"
 
-export default function SignUpPage({setUsuario}) {
+export default function SignUpPage() {
   const [form, setForm] = useState ({nome: "", email: "", senha:"", confsenha:""})
   const navigate = useNavigate()
 
