@@ -1,9 +1,11 @@
 import axios from "axios"
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import styled from "styled-components"
 
 export default function TransactionsPage({ token }) {
+  const {tipo} = useParams()
+  console.log({tipo})
   const [form, setForm] = useState ({valor: "", descricao: ""})
   const navigate = useNavigate()
 
@@ -18,7 +20,7 @@ export default function TransactionsPage({ token }) {
     }
 
     axios.post("http://localhost:5000/transacao", form, config)
-    .then((res) => navigate("/home") (console.log(res)))
+    .then((res) => navigate("/home"))
     .catch((err) => console.log(err.message))
 
   }

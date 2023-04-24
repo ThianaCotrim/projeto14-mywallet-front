@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import { BiExit } from "react-icons/bi"
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import axios from "axios"
 
@@ -9,7 +9,9 @@ export default function HomePage({token, perfilNome}) {
 
 
   const [transacao, setTransacao] = useState([])
+  const {tipo} = useParams()
 
+ 
   
   useEffect(() => {
 
@@ -20,19 +22,22 @@ export default function HomePage({token, perfilNome}) {
     }
 
     axios.get("http://localhost:5000/transacao", config)
-    .then((res) => setTransacao(res.data))
+    .then((res) => {
+      setTransacao(res.data) 
+      // console.log(res.data.forEach(newTransacao => console.log(newTransacao.tipo)))
+    })
     .catch((err) => console.log(err))
 
   }, [])
 
   const navigate = useNavigate()
 
-  function entrada (){
-    navigate("/nova-transacao/entrada")
+  function entrada (type){
+    navigate(`/nova-transacao/${type}`)
   }
 
-  function saida (){
-    navigate("/nova-transacao/saida")
+  function saida (type){
+    navigate(`/nova-transacao/${type}`)
   }
 
   function sair (){
@@ -56,25 +61,25 @@ export default function HomePage({token, perfilNome}) {
         <span>{t.newTransacao.date}</span>
         <strong>{t.newTransacao.descricao}</strong>
       </div>
-      <Value color={t.newTransacao.tipo}>{t.newTransacao.valor}</Value>
+      <Value color={"debito"}>{t.newTransacao.valor}</Value>
     </ListItemContainer>
 
     ))}
         </ul>
         <article>
           <strong>Saldo</strong>
-          <Value color={"positivo"}>2880,00</Value>
+          <Value color={"debito"}>2880,00</Value>
         </article>
       </TransactionsContainer>
       <Testando>
-      <Teste onClick={entrada}>
+      <Teste onClick={() => entrada("credito")}>
         <button>
           <AiOutlinePlusCircle />
           <p>Nova <br /> entrada</p>
         </button>
          </Teste>
         
-      <Teste onClick={saida}>
+      <Teste onClick={() => saida("debito")}>
        <button> 
         <AiOutlineMinusCircle />
           <p>Nova <br />saída</p>
