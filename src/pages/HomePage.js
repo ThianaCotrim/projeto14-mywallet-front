@@ -7,7 +7,6 @@ import axios from "axios"
 
 export default function HomePage({token, perfilNome}) {
 
-
   const [transacao, setTransacao] = useState([])
 
   
@@ -38,6 +37,19 @@ export default function HomePage({token, perfilNome}) {
     localStorage.clear()
   }
 
+  function calcularSomaDeValores(transacoes) {
+    let saldo = 0;
+    transacoes.forEach(transacao => {
+      if(transacao.newTransacao.tipo === "credito"){
+        saldo += parseFloat(transacao.newTransacao.valor);
+      } else {
+        saldo -= parseFloat(transacao.newTransacao.valor);
+      }
+    });
+
+    return saldo.toFixed(2).replace(".", ",");
+  }
+ 
 
   return (
     <HomeContainer>
@@ -47,6 +59,8 @@ export default function HomePage({token, perfilNome}) {
       </Header>
 
       <TransactionsContainer>
+        {transacao.length > 0 ? 
+        <>
         <ul>
     {transacao.map((t) => (
       <ListItemContainer>
@@ -54,15 +68,23 @@ export default function HomePage({token, perfilNome}) {
         <span>{t.newTransacao.date}</span>
         <strong>{t.newTransacao.descricao}</strong>
       </div>
-      <Value  color={t.newTransacao.tipo === "credito" ? "green" : "red"}>{t.newTransacao.valor}</Value>
+      <Value  color={t.newTransacao.tipo === "credito" ? "green" : "red"}>{Number(t.newTransacao.valor).toFixed(2).replace(".", ",")}</Value>
     </ListItemContainer>
 
     ))}
         </ul>
         <article>
           <strong>Saldo</strong>
-          <Value color={"credito"}>2880,00</Value>
+          <Value color={ calcularSomaDeValores(transacao) >= 0 ? "red" : "green"}>
+  {calcularSomaDeValores(transacao)}
+</Value>
         </article>
+        </>
+        :
+        <MenssagemZerada>
+          Não há registro de entrada e saída
+          </MenssagemZerada>}
+       
       </TransactionsContainer>
       <Testando>
       <Teste onClick={() => novaTransacao("credito")}>
@@ -79,7 +101,6 @@ export default function HomePage({token, perfilNome}) {
         </button>
         </Teste>
         </Testando>
-
     </HomeContainer>
   )
 }
@@ -88,6 +109,7 @@ const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   height: calc(100vh - 50px);
+  
 `
 const Header = styled.header`
   display: flex;
@@ -97,6 +119,7 @@ const Header = styled.header`
   margin-bottom: 15px;
   font-size: 26px;
   color: white;
+  
 `
 const TransactionsContainer = styled.article`
   flex-grow: 1;
@@ -107,6 +130,7 @@ const TransactionsContainer = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  overflow-y: scroll;
   article {
     display: flex;
     justify-content: space-between;   
@@ -159,6 +183,13 @@ const ListItemContainer = styled.li`
 
 const Testando = styled.div`
 display:flex;
+`
 
-
+const MenssagemZerada = styled.div`
+display: flex;
+width: 380px;
+margin-top: 250px;
+justify-content: center;
+text-align: center;
+color: #868686;
 `
