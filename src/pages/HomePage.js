@@ -9,7 +9,6 @@ export default function HomePage({token, perfilNome}) {
 
   const [transacao, setTransacao] = useState([])
 
-  
   useEffect(() => {
 
     const config = {
@@ -49,7 +48,6 @@ export default function HomePage({token, perfilNome}) {
 
     return saldo.toFixed(2).replace(".", ",");
   }
- 
 
   return (
     <HomeContainer>
@@ -57,20 +55,19 @@ export default function HomePage({token, perfilNome}) {
         <h1>Olá, {perfilNome}</h1>
         <BiExit onClick={sair}/>
       </Header>
-
       <TransactionsContainer>
         {transacao.length > 0 ? 
         <>
         <ul>
     {transacao.map((t) => (
       <ListItemContainer>
+       
       <div>
         <span>{t.newTransacao.date}</span>
         <strong>{t.newTransacao.descricao}</strong>
       </div>
       <Value  color={t.newTransacao.tipo === "credito" ? "green" : "red"}>{Number(t.newTransacao.valor).toFixed(2).replace(".", ",")}</Value>
     </ListItemContainer>
-
     ))}
         </ul>
         <article>
@@ -119,7 +116,6 @@ const Header = styled.header`
   margin-bottom: 15px;
   font-size: 26px;
   color: white;
-  
 `
 const TransactionsContainer = styled.article`
   flex-grow: 1;
@@ -167,7 +163,6 @@ const Value = styled.div`
   color: ${(props) => (props.color)};
 `
 
-
 const ListItemContainer = styled.li`
   display: flex;
   justify-content: space-between;
@@ -184,10 +179,9 @@ const ListItemContainer = styled.li`
 const Testando = styled.div`
 display:flex;
 `
-
 const MenssagemZerada = styled.div`
 display: flex;
-width: 380px;
+width: 100%;
 margin-top: 250px;
 justify-content: center;
 text-align: center;
