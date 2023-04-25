@@ -18,7 +18,7 @@ export default function TransactionsPage({ token }) {
       }
     }
 
-    axios.post("http://localhost:5000/transacao", form, config)
+    axios.post(`${process.env.REACT_APP_API}/transacao`, form, config)
     .then((res) => navigate("/home"))
     .catch((err) => console.log(err.message))
 

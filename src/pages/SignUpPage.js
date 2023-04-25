@@ -11,7 +11,7 @@ export default function SignUpPage() {
   function cadastrarNovoUsuario(e){
     e.preventDefault()
 
-    axios.post("http://localhost:5000/cadastro", form)
+    axios.post(`${process.env.REACT_APP_API}/cadastro`, form)
     .then((res) => navigate("/"))
     .catch((err) => console.log(err.response.data))
   }

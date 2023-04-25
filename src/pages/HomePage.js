@@ -17,7 +17,7 @@ export default function HomePage({token, perfilNome}) {
       }
     }
 
-    axios.get("http://localhost:5000/transacao", config)
+    axios.get(`${process.env.REACT_APP_API}/transacao`, config)
     .then((res) => {
       setTransacao(res.data) 
     })

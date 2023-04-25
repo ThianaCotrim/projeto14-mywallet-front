@@ -4,7 +4,6 @@ import MyWalletLogo from "../components/MyWalletLogo"
 import { useState } from "react"
 import axios from "axios"
 
-
 export default function SignInPage({setToken, setPerfilNome}) {
 
   const [form, setForm] = useState({email:"", senha:""})
